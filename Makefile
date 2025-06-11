@@ -10,9 +10,15 @@ endif
 
 CONTAINER_CLI ?= docker
 
+GO_BUILD_RECIPE=\
+	GOOS=$(GOOS) \
+	GOARCH=$(GOARCH) \
+	CGO_ENABLED=0 \
+	go build
+
 .PHONY: operator
 operator:
-	go build -o $@ ./cmd/operator/
+	$(GO_BUILD_RECIPE) -o $@ ./cmd/operator/
 
 
 .PHONY: image
